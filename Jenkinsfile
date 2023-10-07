@@ -1,23 +1,23 @@
 pipeline {
 agent {label 'iac'}
 
-// Ensure environment variables are set as secret text type //
 environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
 }
+
 stages{
   stage('Terraform Init'){
     steps {
 	    dir('./gitops') {
-                       sh '/usr/bin/terraform init'
+                       sh '/usr/local/bin/terraform init'
         }
     }
   }
   stage('Terraform Plan'){
     steps {
 	    dir('./gitops') {
-                       sh '/usr/bin/terraform plan'
+                       sh '/usr/local/bin/terraform plan'
         }
     }
   }
@@ -34,7 +34,7 @@ stages{
   stage('Terraform Apply'){
     steps {
 	    dir('./gitops') {
-                       sh '/usr/bin/terraform apply -auto-approve'
+                       sh '/usr/local/bin/terraform apply -auto-approve'
         }
     }
   }

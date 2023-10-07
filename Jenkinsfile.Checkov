@@ -10,15 +10,15 @@ stages{
   stage('Terraform Init'){
     steps {
 	    dir('./gitops') {
-                       sh '/usr/bin/terraform init'
+                       sh '/usr/local/bin/terraform init'
         }
     }
   }
   stage('Terraform Plan'){
     steps {
 	    dir('./gitops') {
-                       sh 'terraform plan -out testplan'
-                       sh 'terraform show -json testplan > testplan.json'
+                       sh '/usr/local/bin/terraform plan -out testplan'
+                       sh '/usr/local/bin/terraform show -json testplan > testplan.json'
         }
     }
   }
@@ -46,7 +46,7 @@ stages{
   stage('Terraform Apply'){
     steps {
 	    dir('./gitops') {
-                       sh '/usr/bin/terraform apply -auto-approve'
+                       sh '/usr/local/bin/terraform apply -auto-approve'
         }
     }
   }
